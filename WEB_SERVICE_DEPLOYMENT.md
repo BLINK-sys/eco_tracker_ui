@@ -8,7 +8,7 @@
 - **Root Directory:** ecotracker_ui
 
 ### 2. Build & Deploy Settings:
-- **Build Command:** `npm install && npm run build`
+- **Build Command:** `chmod +x build.sh && ./build.sh`
 - **Start Command:** `npm start`
 
 ### 3. Environment Variables:
