@@ -129,13 +129,23 @@ const MonitoringPage = () => {
       return [51.1272, 71.4279]; // Астана по умолчанию
     }
     
-    // Группируем локации по городам (используем первые 2 слова адреса как город)
+    // Группируем локации по городам используя координаты
+    // Астана: lat ~51.1, lng ~71.4
+    // Алматы: lat ~43.2, lng ~76.9
     const cityGroups: { [city: string]: typeof locations } = {};
     
     locations.forEach(location => {
-      // Извлекаем город из адреса (первые 2 слова)
-      const addressWords = location.address.split(',').map(w => w.trim());
-      const cityKey = addressWords.slice(0, 2).join(', ');
+      let cityKey = '';
+      
+      // Определяем город по координатам
+      if (location.lat > 50 && location.lat < 52 && location.lng > 70 && location.lng < 73) {
+        cityKey = 'Астана';
+      } else if (location.lat > 42 && location.lat < 44 && location.lng > 75 && location.lng < 78) {
+        cityKey = 'Алматы';
+      } else {
+        // Для других городов используем приблизительные координаты как ключ
+        cityKey = `${Math.round(location.lat * 10) / 10}, ${Math.round(location.lng * 10) / 10}`;
+      }
       
       if (!cityGroups[cityKey]) {
         cityGroups[cityKey] = [];
@@ -148,11 +158,14 @@ const MonitoringPage = () => {
     let maxLocationsCount = 0;
     
     Object.entries(cityGroups).forEach(([city, cityLocations]) => {
+      console.log(`🏙️ Город: ${city}, точек: ${cityLocations.length}`);
       if (cityLocations.length > maxLocationsCount) {
         maxLocationsCount = cityLocations.length;
         cityWithMostLocations = city;
       }
     });
+    
+    console.log(`🎯 Выбран город: ${cityWithMostLocations} с ${maxLocationsCount} точками`);
     
     // Вычисляем центр для города с наибольшим количеством точек
     const cityLocations = cityGroups[cityWithMostLocations];
