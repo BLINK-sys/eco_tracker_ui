@@ -115,16 +115,48 @@ const MonitoringPage = () => {
     }
   }, [locations, selectedLocation?.id]);
 
-  // Вычисляем центр карты на основе площадок компании
+  // Вычисляем центр карты на основе города с наибольшим количеством точек
   const getMapCenter = (): [number, number] => {
     if (locations.length === 0) {
       return [51.1272, 71.4279]; // Астана по умолчанию
     }
     
-    // Вычисляем среднюю точку всех площадок
+    // Группируем локации по городам (используем первые 2 слова адреса как город)
+    const cityGroups: { [city: string]: typeof locations } = {};
+    
+    locations.forEach(location => {
+      // Извлекаем город из адреса (первые 2 слова)
+      const addressWords = location.address.split(',').map(w => w.trim());
+      const cityKey = addressWords.slice(0, 2).join(', ');
+      
+      if (!cityGroups[cityKey]) {
+        cityGroups[cityKey] = [];
+      }
+      cityGroups[cityKey].push(location);
+    });
+    
+    // Находим город с наибольшим количеством точек
+    let cityWithMostLocations = '';
+    let maxLocationsCount = 0;
+    
+    Object.entries(cityGroups).forEach(([city, cityLocations]) => {
+      if (cityLocations.length > maxLocationsCount) {
+        maxLocationsCount = cityLocations.length;
+        cityWithMostLocations = city;
+      }
+    });
+    
+    // Вычисляем центр для города с наибольшим количеством точек
+    const cityLocations = cityGroups[cityWithMostLocations];
+    if (cityLocations && cityLocations.length > 0) {
+      const avgLat = cityLocations.reduce((sum, loc) => sum + loc.lat, 0) / cityLocations.length;
+      const avgLng = cityLocations.reduce((sum, loc) => sum + loc.lng, 0) / cityLocations.length;
+      return [avgLat, avgLng];
+    }
+    
+    // Fallback: если что-то пошло не так, используем общий центр всех точек
     const avgLat = locations.reduce((sum, loc) => sum + loc.lat, 0) / locations.length;
     const avgLng = locations.reduce((sum, loc) => sum + loc.lng, 0) / locations.length;
-    
     return [avgLat, avgLng];
   };
 
@@ -267,9 +299,10 @@ const MonitoringPage = () => {
               center={getMapCenter()}
               zoom={locations.length <= 2 ? 14 : 13}
               className="h-full w-full"
+              attributionControl={false}
             >
               <TileLayer
-                attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution=''
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               
