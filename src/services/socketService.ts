@@ -60,14 +60,12 @@ class SocketService {
     this.socket.on('container_updated', (data) => {
       console.log('📦 [SOCKET] Container updated event received!');
       console.log('   Data:', data);
-      console.log('   Listeners count:', this.listeners.get('container_updated')?.length || 0);
       this.emit('container_updated', data);
     });
 
     this.socket.on('location_updated', (data) => {
       console.log('📍 [SOCKET] Location updated event received!');
       console.log('   Data:', data);
-      console.log('   Listeners count:', this.listeners.get('location_updated')?.length || 0);
       this.emit('location_updated', data);
     });
   }
