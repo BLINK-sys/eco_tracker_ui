@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { getStatusInfo } from "@/services/dataService";
@@ -45,6 +45,23 @@ const createContainerIcon = (color, opacity = 1) => {
     iconSize: [32, 32],
     iconAnchor: [16, 16]
   });
+};
+
+// Компонент для автоматического центрирования карты на выбранную точку
+const MapCenterController = ({ selectedLocation }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (selectedLocation) {
+      // Плавно перемещаем карту к выбранной точке с анимацией
+      map.flyTo([selectedLocation.lat, selectedLocation.lng], 16, {
+        duration: 1.5, // Длительность анимации в секундах
+        easeLinearity: 0.25
+      });
+    }
+  }, [selectedLocation, map]);
+
+  return null;
 };
 
 const MonitoringPage = () => {
@@ -255,6 +272,10 @@ const MonitoringPage = () => {
                 attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
+              
+              {/* Компонент для автоматического центрирования на выбранной точке */}
+              <MapCenterController selectedLocation={selectedLocation} />
+              
               {locations.map((location) => {
                 const isHighlighted = (searchQuery === "" && selectedAddress === "") || 
                   filteredLocations.some(filtered => filtered.id === location.id) ||
