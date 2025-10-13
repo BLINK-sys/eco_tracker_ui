@@ -1,6 +1,6 @@
 import { io, Socket } from 'socket.io-client';
 
-const SOCKET_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+const SOCKET_URL = import.meta.env.VITE_API_URL?.replace('/api', '') || 'https://eco-tracker-server.onrender.com';
 
 class SocketService {
   private socket: Socket | null = null;
@@ -17,10 +17,13 @@ class SocketService {
     console.log('Connecting to WebSocket server:', SOCKET_URL);
 
     this.socket = io(SOCKET_URL, {
-      transports: ['websocket', 'polling'],
+      transports: ['websocket', 'polling'],  // WebSocket первым для Render Starter
       reconnection: true,
       reconnectionDelay: 1000,
-      reconnectionAttempts: 5,
+      reconnectionAttempts: 10,
+      timeout: 20000,
+      upgrade: true,
+      rememberUpgrade: true,
     });
 
     // Отладка - слушаем ВСЕ события (ДОЛЖНО БЫТЬ ПЕРВЫМ!)
