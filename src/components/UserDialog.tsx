@@ -297,165 +297,174 @@ const UserDialog: React.FC<UserDialogProps> = ({ user, onUserSaved, children }) 
             <div className="space-y-4">
               <h3 className="text-lg font-medium">Права доступа</h3>
               
-              <div className="space-y-4">
-                {/* Основные разделы */}
-                <div className="space-y-3">
-                  <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Основные разделы</h4>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_view_monitoring"
-                      checked={accessRights.can_view_monitoring}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_view_monitoring', checked as boolean)}
-                    />
-                    <Label htmlFor="can_view_monitoring" className="text-sm">Просмотр мониторинга</Label>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_view_notifications"
-                      checked={accessRights.can_view_notifications}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_view_notifications', checked as boolean)}
-                    />
-                    <Label htmlFor="can_view_notifications" className="text-sm">Просмотр уведомлений</Label>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_view_locations"
-                      checked={accessRights.can_view_locations}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_view_locations', checked as boolean)}
-                    />
-                    <Label htmlFor="can_view_locations" className="text-sm">Просмотр площадок</Label>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_view_reports"
-                      checked={accessRights.can_view_reports}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_view_reports', checked as boolean)}
-                    />
-                    <Label htmlFor="can_view_reports" className="text-sm">Просмотр отчетов</Label>
-                  </div>
-                </div>
-
-                {/* Администрирование */}
-                <div className="space-y-3">
-                  <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Администрирование</h4>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_view_admin"
-                      checked={accessRights.can_view_admin}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_view_admin', checked as boolean)}
-                    />
-                    <Label htmlFor="can_view_admin" className="text-sm font-medium">Доступ к администрированию</Label>
-                  </div>
-                  
-                  <div className="ml-6 space-y-2">
+              <div className="flex flex-col md:flex-row gap-6">
+                {/* Левая колонка прав доступа */}
+                <div className="flex-1 space-y-4">
+                  {/* Основные разделы */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Основные разделы</h4>
+                    
                     <div className="flex items-center space-x-2">
                       <Checkbox
-                        id="can_manage_users"
-                        checked={accessRights.can_manage_users}
-                        onCheckedChange={(checked) => handleAccessRightChange('can_manage_users', checked as boolean)}
-                        disabled={!accessRights.can_view_admin}
+                        id="can_view_monitoring"
+                        checked={accessRights.can_view_monitoring}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_view_monitoring', checked as boolean)}
                       />
-                      <Label htmlFor="can_manage_users" className="text-sm text-gray-600">Управление пользователями</Label>
+                      <Label htmlFor="can_view_monitoring" className="text-sm">Просмотр мониторинга</Label>
                     </div>
                     
                     <div className="flex items-center space-x-2">
                       <Checkbox
-                        id="can_manage_companies"
-                        checked={accessRights.can_manage_companies}
-                        onCheckedChange={(checked) => handleAccessRightChange('can_manage_companies', checked as boolean)}
-                        disabled={!accessRights.can_view_admin}
+                        id="can_view_notifications"
+                        checked={accessRights.can_view_notifications}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_view_notifications', checked as boolean)}
                       />
-                      <Label htmlFor="can_manage_companies" className="text-sm text-gray-600">Управление компаниями</Label>
+                      <Label htmlFor="can_view_notifications" className="text-sm">Просмотр уведомлений</Label>
                     </div>
                     
                     <div className="flex items-center space-x-2">
                       <Checkbox
-                        id="can_view_security"
-                        checked={accessRights.can_view_security}
-                        onCheckedChange={(checked) => handleAccessRightChange('can_view_security', checked as boolean)}
-                        disabled={!accessRights.can_view_admin || !accessRights.can_manage_users}
+                        id="can_view_locations"
+                        checked={accessRights.can_view_locations}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_view_locations', checked as boolean)}
                       />
-                      <Label htmlFor="can_view_security" className="text-sm text-gray-600">Просмотр безопасности</Label>
+                      <Label htmlFor="can_view_locations" className="text-sm">Просмотр площадок</Label>
                     </div>
                     
                     <div className="flex items-center space-x-2">
                       <Checkbox
-                        id="can_manage_notifications"
-                        checked={accessRights.can_manage_notifications}
-                        onCheckedChange={(checked) => handleAccessRightChange('can_manage_notifications', checked as boolean)}
-                        disabled={!accessRights.can_view_admin}
+                        id="can_view_reports"
+                        checked={accessRights.can_view_reports}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_view_reports', checked as boolean)}
                       />
-                      <Label htmlFor="can_manage_notifications" className="text-sm text-gray-600">Управление уведомлениями</Label>
+                      <Label htmlFor="can_view_reports" className="text-sm">Просмотр отчетов</Label>
+                    </div>
+                  </div>
+
+                  {/* Администрирование */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Администрирование</h4>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="can_view_admin"
+                        checked={accessRights.can_view_admin}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_view_admin', checked as boolean)}
+                      />
+                      <Label htmlFor="can_view_admin" className="text-sm font-medium">Доступ к администрированию</Label>
+                    </div>
+                    
+                    <div className="ml-6 space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="can_manage_users"
+                          checked={accessRights.can_manage_users}
+                          onCheckedChange={(checked) => handleAccessRightChange('can_manage_users', checked as boolean)}
+                          disabled={!accessRights.can_view_admin}
+                        />
+                        <Label htmlFor="can_manage_users" className="text-sm text-gray-600">Управление пользователями</Label>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="can_manage_companies"
+                          checked={accessRights.can_manage_companies}
+                          onCheckedChange={(checked) => handleAccessRightChange('can_manage_companies', checked as boolean)}
+                          disabled={!accessRights.can_view_admin}
+                        />
+                        <Label htmlFor="can_manage_companies" className="text-sm text-gray-600">Управление компаниями</Label>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="can_view_security"
+                          checked={accessRights.can_view_security}
+                          onCheckedChange={(checked) => handleAccessRightChange('can_view_security', checked as boolean)}
+                          disabled={!accessRights.can_view_admin || !accessRights.can_manage_users}
+                        />
+                        <Label htmlFor="can_view_security" className="text-sm text-gray-600">Просмотр безопасности</Label>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="can_manage_notifications"
+                          checked={accessRights.can_manage_notifications}
+                          onCheckedChange={(checked) => handleAccessRightChange('can_manage_notifications', checked as boolean)}
+                          disabled={!accessRights.can_view_admin}
+                        />
+                        <Label htmlFor="can_manage_notifications" className="text-sm text-gray-600">Управление уведомлениями</Label>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Управление площадками */}
-                <div className="space-y-3">
-                  <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Управление площадками</h4>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_create_locations"
-                      checked={accessRights.can_create_locations}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_create_locations', checked as boolean)}
-                    />
-                    <Label htmlFor="can_create_locations" className="text-sm">Создание площадок</Label>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_edit_locations"
-                      checked={accessRights.can_edit_locations}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_edit_locations', checked as boolean)}
-                    />
-                    <Label htmlFor="can_edit_locations" className="text-sm">Редактирование площадок</Label>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_delete_locations"
-                      checked={accessRights.can_delete_locations}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_delete_locations', checked as boolean)}
-                    />
-                    <Label htmlFor="can_delete_locations" className="text-sm">Удаление площадок</Label>
-                  </div>
-                </div>
+                {/* Разделительная полоса */}
+                <div className="hidden md:block border-l border-gray-200 mx-4"></div>
 
-                {/* Управление контейнерами */}
-                <div className="space-y-3">
-                  <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Управление контейнерами</h4>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_create_containers"
-                      checked={accessRights.can_create_containers}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_create_containers', checked as boolean)}
-                    />
-                    <Label htmlFor="can_create_containers" className="text-sm">Создание контейнеров</Label>
+                {/* Правая колонка прав доступа */}
+                <div className="flex-1 space-y-4">
+                  {/* Управление площадками */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Управление площадками</h4>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="can_create_locations"
+                        checked={accessRights.can_create_locations}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_create_locations', checked as boolean)}
+                      />
+                      <Label htmlFor="can_create_locations" className="text-sm">Создание площадок</Label>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="can_edit_locations"
+                        checked={accessRights.can_edit_locations}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_edit_locations', checked as boolean)}
+                      />
+                      <Label htmlFor="can_edit_locations" className="text-sm">Редактирование площадок</Label>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="can_delete_locations"
+                        checked={accessRights.can_delete_locations}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_delete_locations', checked as boolean)}
+                      />
+                      <Label htmlFor="can_delete_locations" className="text-sm">Удаление площадок</Label>
+                    </div>
                   </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_edit_containers"
-                      checked={accessRights.can_edit_containers}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_edit_containers', checked as boolean)}
-                    />
-                    <Label htmlFor="can_edit_containers" className="text-sm">Редактирование контейнеров</Label>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="can_delete_containers"
-                      checked={accessRights.can_delete_containers}
-                      onCheckedChange={(checked) => handleAccessRightChange('can_delete_containers', checked as boolean)}
-                    />
-                    <Label htmlFor="can_delete_containers" className="text-sm">Удаление контейнеров</Label>
+
+                  {/* Управление контейнерами */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Управление контейнерами</h4>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="can_create_containers"
+                        checked={accessRights.can_create_containers}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_create_containers', checked as boolean)}
+                      />
+                      <Label htmlFor="can_create_containers" className="text-sm">Создание контейнеров</Label>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="can_edit_containers"
+                        checked={accessRights.can_edit_containers}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_edit_containers', checked as boolean)}
+                      />
+                      <Label htmlFor="can_edit_containers" className="text-sm">Редактирование контейнеров</Label>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="can_delete_containers"
+                        checked={accessRights.can_delete_containers}
+                        onCheckedChange={(checked) => handleAccessRightChange('can_delete_containers', checked as boolean)}
+                      />
+                      <Label htmlFor="can_delete_containers" className="text-sm">Удаление контейнеров</Label>
+                    </div>
                   </div>
                 </div>
               </div>
