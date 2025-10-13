@@ -48,7 +48,7 @@ const createContainerIcon = (color, opacity = 1) => {
 };
 
 // Компонент для автоматического центрирования карты на выбранную точку
-const MapCenterController = ({ selectedLocation }) => {
+const MapCenterController = ({ selectedLocation, locations, getMapCenter }) => {
   const map = useMap();
 
   useEffect(() => {
@@ -58,8 +58,16 @@ const MapCenterController = ({ selectedLocation }) => {
         duration: 1.5, // Длительность анимации в секундах
         easeLinearity: 0.25
       });
+    } else if (locations.length > 0) {
+      // Если точка не выбрана, возвращаемся к общему центру
+      const center = getMapCenter();
+      const zoom = locations.length <= 2 ? 14 : 13;
+      map.flyTo(center, zoom, {
+        duration: 1.5,
+        easeLinearity: 0.25
+      });
     }
-  }, [selectedLocation, map]);
+  }, [selectedLocation, locations, getMapCenter, map]);
 
   return null;
 };
@@ -225,6 +233,9 @@ const MonitoringPage = () => {
 
   const handleCloseDetails = () => {
     setSelectedLocation(null);
+    // Сбрасываем выпадающий список и поиск
+    setSelectedAddress("");
+    setSearchQuery("");
   };
 
   const handleAddressSelect = (address) => {
@@ -307,7 +318,11 @@ const MonitoringPage = () => {
               />
               
               {/* Компонент для автоматического центрирования на выбранной точке */}
-              <MapCenterController selectedLocation={selectedLocation} />
+              <MapCenterController 
+                selectedLocation={selectedLocation} 
+                locations={locations}
+                getMapCenter={getMapCenter}
+              />
               
               {locations.map((location) => {
                 const isHighlighted = (searchQuery === "" && selectedAddress === "") || 
