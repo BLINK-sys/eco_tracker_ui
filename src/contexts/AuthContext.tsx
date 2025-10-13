@@ -141,8 +141,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     initAuth();
+  }, []);
 
-    // Подписка на WebSocket события
+  // Подписка на WebSocket события (отдельный useEffect)
+  useEffect(() => {
     socketService.on('container_updated', handleContainerUpdate);
     socketService.on('location_updated', handleLocationUpdate);
 
@@ -150,6 +152,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return () => {
       socketService.off('container_updated', handleContainerUpdate);
       socketService.off('location_updated', handleLocationUpdate);
+    };
+  }, [handleContainerUpdate, handleLocationUpdate]);
+
+  // Отключение сокета при размонтировании компонента
+  useEffect(() => {
+    return () => {
       socketService.disconnect();
     };
   }, []);
