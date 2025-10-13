@@ -4,9 +4,9 @@
 set -o errexit
 
 echo "🔧 Installing dependencies..."
-npm install
+npm install --production=false
 
 echo "🏗️ Building application..."
-npm run build
+npx vite build
 
 echo "✅ Build completed successfully!"

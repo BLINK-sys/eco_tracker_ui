@@ -11,6 +11,10 @@
 - **Build Command:** `chmod +x build.sh && ./build.sh`
 - **Start Command:** `npm start`
 
+**Альтернативно, можно использовать прямые команды:**
+- **Build Command:** `npm install && npx vite build`
+- **Start Command:** `npm start`
+
 ### 3. Environment Variables:
 ```
 VITE_API_URL = https://eco-tracker-server.onrender.com/api
