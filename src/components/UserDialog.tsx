@@ -297,9 +297,9 @@ const UserDialog: React.FC<UserDialogProps> = ({ user, onUserSaved, children }) 
             <div className="space-y-4">
               <h3 className="text-lg font-medium">Права доступа</h3>
               
-              <div className="flex flex-col md:flex-row gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Левая колонка прав доступа */}
-                <div className="flex-1 space-y-4">
+                <div className="space-y-4">
                   {/* Основные разделы */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Основные разделы</h4>
@@ -398,11 +398,8 @@ const UserDialog: React.FC<UserDialogProps> = ({ user, onUserSaved, children }) 
                   </div>
                 </div>
 
-                {/* Разделительная полоса */}
-                <div className="hidden md:block border-l border-gray-200 mx-4"></div>
-
                 {/* Правая колонка прав доступа */}
-                <div className="flex-1 space-y-4">
+                <div className="space-y-4">
                   {/* Управление площадками */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-medium text-gray-700 border-b pb-1">Управление площадками</h4>
