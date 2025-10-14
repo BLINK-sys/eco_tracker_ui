@@ -183,6 +183,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Выход
   const logout = () => {
+    // Отключаем WebSocket перед выходом
+    socketService.disconnect();
+    
     authService.logout();
     setUser(null);
     setLocations([]);
