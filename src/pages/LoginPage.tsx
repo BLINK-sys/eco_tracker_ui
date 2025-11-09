@@ -55,8 +55,19 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
-      <Card className="w-full max-w-md">
+    <div 
+      className="min-h-screen flex items-center justify-center p-4 relative"
+      style={{
+        backgroundImage: 'url(/astana.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Затемнение для читаемости */}
+      <div className="absolute inset-0 bg-black/40" />
+      
+      <Card className="w-full max-w-md relative z-10 backdrop-blur-sm bg-white/95">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Вход в систему</CardTitle>
           <CardDescription>

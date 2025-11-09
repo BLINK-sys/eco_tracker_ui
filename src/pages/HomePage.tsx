@@ -7,17 +7,28 @@ import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted">
+    <div 
+      className="min-h-screen relative"
+      style={{
+        backgroundImage: 'url(/astana.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Затемнение для читаемости */}
+      <div className="absolute inset-0 bg-black/50" />
+      
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
+          <Badge variant="secondary" className="mb-4 backdrop-blur-sm bg-white/80">
             Система мониторинга отходов
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-primary drop-shadow-lg">
             EcoTracker
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8 drop-shadow-md">
             Современная система мониторинга и управления сбором отходов. 
             Отслеживайте контейнеры, оптимизируйте маршруты и улучшайте экологию вашего города.
           </p>
@@ -33,7 +44,7 @@ const HomePage = () => {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          <Card>
+          <Card className="backdrop-blur-sm bg-white/95">
             <CardHeader>
               <MapPin className="h-8 w-8 text-primary mb-2" />
               <CardTitle>Мониторинг в реальном времени</CardTitle>
@@ -45,7 +56,7 @@ const HomePage = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="backdrop-blur-sm bg-white/95">
             <CardHeader>
               <BarChart3 className="h-8 w-8 text-primary mb-2" />
               <CardTitle>Аналитика и отчеты</CardTitle>
@@ -57,7 +68,7 @@ const HomePage = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="backdrop-blur-sm bg-white/95">
             <CardHeader>
               <Shield className="h-8 w-8 text-primary mb-2" />
               <CardTitle>Безопасность данных</CardTitle>
@@ -69,7 +80,7 @@ const HomePage = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="backdrop-blur-sm bg-white/95">
             <CardHeader>
               <Users className="h-8 w-8 text-primary mb-2" />
               <CardTitle>Управление командой</CardTitle>
@@ -84,7 +95,7 @@ const HomePage = () => {
 
         {/* CTA Section */}
         <div className="text-center">
-          <Card className="max-w-2xl mx-auto">
+          <Card className="max-w-2xl mx-auto backdrop-blur-sm bg-white/95">
             <CardHeader>
               <CardTitle className="text-2xl">Готовы начать?</CardTitle>
               <CardDescription>
